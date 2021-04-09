@@ -26,7 +26,7 @@ knitr::opts_chunk$set(eval=FALSE, echo =TRUE, cache = FALSE, message = FALSE, wa
 
 # Introduction {-}
 
-Les data  sont déposées ici [https://github.com/lucNegroni/EvaluationM4-M5.git](https://github.com/lucNegroni/EvaluationM4-M5.git)
+Les fichiers sont déposées [ici](https://github.com/lucNegroni/EvaluationM4-M5.git)
 
 l'ensemble du travail est sur le serveur de l'IFB:
 [shared/projects/dubii2021/lnegroni/EvaluationM4M5-main](https://jupyterhub.cluster.france-bioinformatique.fr/hub/user-redirect/lab/tree/shared/projects/dubii2021/lnegroni/EvaluationM4M5-main)
@@ -140,7 +140,7 @@ La qualité des bases vous paraît-elle satisfaisante ? Pourquoi ?
 
 car <code> le score de qualité est supérieur à 30, la longueur des reads supérieure à 100 et les resultats sont comparables entre R1 et R2  </code> comme le montre <code> les fichiers html pour le (read1) [SRR10390685_1_fastqc.html] et le (read2)[SRR10390685_2_fastqc.html]</code>
 
-Lien vers le [rapport MulitQC](multiqc_report.html)
+Lien vers le [rapport MulitQC](./multiqc_report.html)
 
 Est-ce que les reads déposés ont subi une étape de nettoyage avant d'être déposés ? Pourquoi ?
 
@@ -284,6 +284,6 @@ decouverte du soft et export image de la zone correpondant à trmNF
 
 ```
 Utilisation de IGV local pour la visualisation:
-![igv_snapshot](igv_snapshot.png)
+![igv_snapshot](./igv_snapshot.png)
 
 # References
