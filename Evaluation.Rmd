@@ -157,6 +157,7 @@ Quelle est la profondeur de séquençage (calculée par rapport à la taille du 
 #file                    format  type   num_seqs        sum_len  min_len  avg_len  max_len
 #SRR10390685_1.fastq.gz  FASTQ   DNA   7,066,055  1,056,334,498       35    149.5      151
 #SRR10390685_2.fastq.gz  FASTQ   DNA   7,066,055  1,062,807,718      130    150.4      151
+
 profondeur <- c(2*7066055 * 150 /  4215606)
 profondeur
 
@@ -171,9 +172,10 @@ Vous voulez maintenant nettoyer un peu vos lectures. Choisissez les paramètres 
 ```{bash}
 # avec fastp
 # filtres = mean quality > 30 longueur >=100, garder seulement les paires
-#
+
 module load fastp
-fatp --version #fastp 0.20.0
+fastp --version #fastp 0.20.0
+
 # la ligne de la mort: fastp prends en entrée ("--in") les deux fichiers (car paired end) non nettoyés et crée en sortie ("--out")les fastq nettoyés dans le dir "CLEANING". la fin de ligne correspond aux paramêtres et la sortie est fastp.json est remplacée par fastp.log
 srun --cpus-per-task 8 fastp --in1 FASTQ/SRR10390685_1.fastq.gz --in2 FASTQ/SRR10390685_2.fastq.gz --out1 CLEANING/SRR10390685_1.cleaned_filtered.fastq.gz --out2 CLEANING/SRR10390685_2.cleaned_filtered.fastq.gz --html CLEANING/fastp.html --thread 8 --cut_mean_quality 30 --cut_window_size 8 --length_required 100 --cut_tail &> CLEANING/fastp.log
 
@@ -213,9 +215,10 @@ srun samtools sort SRR10390685_on_ASM904.1.bam -o SRR10390685_on_ASM904.1.sort.b
 srun samtools index SRR10390685_on_ASM904.1.sort.bam
 
 # suppression des fichiers intermediaires via Jupyter Hub
-'''les differentes étapes auraient pu être résumées par:
-srun --cpus-per-task=34 bwa mem GCF_000009045.1_ASM904v1_genomic.fasta ../CLEANING/SRR10390685_1.cleaned_filtered.fastq.gz ../CLEANING/SRR10390685_2.cleaned_filtered.fastq.gz -t 32 | srun samtools view -b - | srun samtools sort - > SRR10390685_on_ASM904.1.sort.bam
-'''
+
+#les differentes étapes auraient pu être résumées par:
+#srun --cpus-per-task=34 bwa mem GCF_000009045.1_ASM904v1_genomic.fasta ../CLEANING/SRR10390685_1.cleaned_filtered.fastq.gz ../CLEANING/SRR10390685_2.cleaned_filtered.fastq.gz -t 32 | srun samtools view -b - | srun samtools sort - > SRR10390685_on_ASM904.1.sort.bam
+
 ```
 
 Combien de reads ne sont pas mappés ?
@@ -224,7 +227,8 @@ Combien de reads ne sont pas mappés ?
 #statistics from samtools
 srun samtools idxstats SRR10390685_on_ASM904.1.sort.bam > SRR10390685_on_ASM904.1.sort.bam.idxstats
 srun samtools flagstat SRR10390685_on_ASM904.1.sort.bam > SRR10390685_on_ASM904.1.sort.bam.flagstat
-# nv de reads non mappés dans le fichier .idxstats
+
+# nombre de reads non mappés dans le fichier .idxstats
 #13571369 + 0 in total (QC-passed reads + QC-failed reads)
 #12826829 + 0 mapped (94.51% : N/A)
 # soit 744 540 non mappés (5.5%)
@@ -268,19 +272,20 @@ srun samtools flagstat trmNF.sort.bam > trmNF.sort.bam.flagstat
 samtools faidx GCF_000009045.1_ASM904v1_genomic.fasta
 samptools faidx SRR10390685_on_ASM904.1.sort.bam
 samptools faidx trmNF.sort.bam
-'''
-download des fichiers 
-GCF_000009045.1_ASM904v1_genomic.fasta
-GCF_000009045.1_ASM904v1_genomic.fasta.ai
-SRR10390685_on_ASM904.1.sort.bam
-SRR10390685_on_ASM904.1.sort.bam.ai
-trmNF.sort.bam
-trmNF.sort.bam.ai
 
-installation de IGV sous win10
-loading du fichier genomique (fasta) , son annotation (gff) des bam du jeux complet et de trmNF
-decouverte du soft et export image de la zone correpondant à trmNF
-'''
+
+<!-- download des fichiers  -->
+<!-- GCF_000009045.1_ASM904v1_genomic.fasta -->
+<!-- GCF_000009045.1_ASM904v1_genomic.fasta.ai -->
+<!-- SRR10390685_on_ASM904.1.sort.bam -->
+<!-- SRR10390685_on_ASM904.1.sort.bam.ai -->
+<!-- trmNF.sort.bam -->
+<!-- trmNF.sort.bam.ai -->
+
+<!-- installation de IGV sous win10 -->
+<!-- loading du fichier genomique (fasta) , son annotation (gff) des bam du jeux complet et de trmNF -->
+<!-- decouverte du soft et export image de la zone correpondant à trmNF -->
+
 
 ```
 Utilisation de IGV local pour la visualisation:
